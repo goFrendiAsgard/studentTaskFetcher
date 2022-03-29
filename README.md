@@ -48,7 +48,7 @@ EUNIKE YOLANDA SIAHAAN,https://github.com/MEVLEPEIZ/go_Eunike-Yolanda-Siahaan.gi
 ```bash
 python ./fetcher.py ./config.json
 # or
-# pythono ./fetcher.py
+# python ./fetcher.py
 ```
 
 # Result
