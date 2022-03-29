@@ -1,0 +1,7 @@
+{
+    "csv_file_name": "data.csv",
+    "result_dir_name": "data",
+    "new_line": "",
+    "delimiter": ",",
+    "quote_char": "'"
+}
