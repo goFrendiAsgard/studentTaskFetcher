@@ -3,5 +3,23 @@
     "result_dir_name": "data",
     "new_line": "",
     "delimiter": ",",
-    "quote_char": "'"
+    "quote_char": "'",
+    "checkers": [
+        {
+            "name": "2_praktikum", 
+            "patterns": [
+                "^.*/0*2[^0-9].*/praktikum$",
+                "^.*/0*2[^0-9].*/.*\\.go$",
+                "^.*/0*2[^0-9].*/.*\\.html$",
+                "^.*/0*2[^0-9].*/.*\\.txt$"
+            ]
+        },
+        {
+            "name": "2_summary", 
+            "patterns": [
+                "^.*/0*2[^0-9].*/summary.md$",
+                "^.*/0*2[^0-9].*/\\([0-9]+\\).*.md$"
+            ]
+        }
+    ]
 }
