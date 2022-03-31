@@ -71,15 +71,15 @@ def get_submissions(repo_name, result_dir_name: str, checkers: List[Mapping[str,
 
 def get_task_names(checkers: Mapping[str, Any], min_index: int, max_index: int) -> List[str]:
     seen: Mapping[str, bool] = {}
-    column_names: List[str] = []
-    for checker in checkers:
-        for index in range(min_index, max_index+1):
-            name = checker["name"].format(index=index)
-            if name in seen:
+    task_names: List[str] = []
+    for index in range(min_index, max_index+1):
+        for checker in checkers:
+            task_name = checker["name"].format(index=index)
+            if task_name in seen:
                 continue
-            seen[name] = True
-            column_names.append(name)
-    return column_names
+            seen[task_name] = True
+            task_names.append(task_name)
+    return task_names
 
 
 def get_file_created_at(file_path, repo_name, result_dir_name: str) -> str:
