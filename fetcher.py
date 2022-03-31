@@ -69,7 +69,7 @@ def get_submissions(repo_name, result_dir_name: str, checkers: List[Mapping[str,
     return _get_submissions(file_names, checkers, min_index, max_index)
 
 
-def get_column_names(checkers: Mapping[str, Any], min_index: int, max_index: int) -> List[str]:
+def get_task_names(checkers: Mapping[str, Any], min_index: int, max_index: int) -> List[str]:
     seen: Mapping[str, bool] = {}
     column_names: List[str] = []
     for checker in checkers:
@@ -89,42 +89,24 @@ def get_file_created_at(file_path, repo_name, result_dir_name: str) -> str:
     repo_path = os.path.join(result_dir_name, repo_name)
     command = "cd {repo_path} && git log --format=%aD '{rel_path}'".format(rel_path=rel_path, repo_path=repo_path)
     return ', '.join(subprocess.check_output(command, shell=True, text=True).split('\n')).strip()
-    # TODO: git log --format=%aD '2_Version Control and Branch Management (Git)/Summary.md' | tail -1
 
 
-def get_markdown_table(class_submission: Mapping[str, Mapping[str, List[str]]], checkers: Mapping[str, Any], min_index: int, max_index: int, result_dir_name: str) -> str:
-    column_names = get_column_names(checkers, min_index, max_index)
-    header_row = '|'.join(['{column_name}|Created at'.format(column_name=column_name) for column_name in column_names])
-    separator_row = '|'.join(['---|---' for _ in column_names])
-    body_rows: List[str] = []
-    for student_name, student_task in class_submission.items():
-        repo_name=camel_case(student_name)
-        cells:List[List[str]] = []
-        for column_index, column_name in enumerate(column_names):
-            tasks = student_task[column_name]
-            for row_index, task in enumerate(tasks):
-                if row_index >= len(cells):
-                    cells.append([''] * len(column_names))
-                cells[row_index][column_index] = task
-        for row_index, row in enumerate(cells):
-            first_column = student_name if row_index == 0 else ''
-            body_row = '|{first_column}|{task_row}'.format(
-                first_column=first_column,
-                task_row='|'.join([
-                    '[{task_file_caption}]({task_file_link})|{created_at}'.format(
-                        task_file_caption=task_file,
-                        task_file_link=task_file.replace(' ', '%20'),
-                        created_at=get_file_created_at(task_file, repo_name, result_dir_name)
-                    ) for task_file in row
-                ])
-            )
-            body_rows.append(body_row)
-    markdown = '|Name|{header_row}\n|---|{separator_row}\n{body_rows}'.format(
-        header_row=header_row,
-        separator_row=separator_row,
-        body_rows='\n'.join(body_rows)
-    )
-    return markdown
+def get_markdown_report(class_submission: Mapping[str, Mapping[str, List[str]]], checkers: Mapping[str, Any], min_index: int, max_index: int, result_dir_name: str) -> str:
+    lines: List[str] = ['# Report']
+    task_names = get_task_names(checkers, min_index, max_index)
+    for task_name in task_names:
+        lines.append('## {task_name}'.format(task_name=task_name))
+        for student_name, student_submissions in class_submission.items():
+            repo_name = camel_case(student_name)
+            lines.append('* {student_name}'.format(student_name=student_name))
+            submission_items = student_submissions[task_name]
+            for submission_item in submission_items:
+                lines.append('  - [{submission_item}]({url}), Created at: {created_at}'.format(
+                    submission_item=submission_item, 
+                    url=submission_item.replace(' ', '%20'),
+                    created_at=get_file_created_at(submission_item, repo_name, result_dir_name)
+                ))
+    return '\n'.join(lines)
 
 
 def main(config: Mapping[str, Any]):
@@ -147,10 +129,9 @@ def main(config: Mapping[str, Any]):
             clone_or_pull(git_url, repo_name, result_dir_name)
             student_submission = get_submissions(repo_name, result_dir_name, checkers, min_index, max_index)
             class_submission[name] = student_submission
-        markdown_table = get_markdown_table(class_submission, checkers, min_index, max_index, result_dir_name)
+        markdown = get_markdown_report(class_submission, checkers, min_index, max_index, result_dir_name)
         with open(os.path.join(result_dir_name, 'README.md'), 'w') as report_file:
-            report_file.write('# Report\n')
-            report_file.write(markdown_table)
+            report_file.write(markdown)
 
 
 if __name__ == '__main__':
