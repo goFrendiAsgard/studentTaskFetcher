@@ -4,21 +4,23 @@
     "new_line": "",
     "delimiter": ",",
     "quote_char": "'",
+    "min_index": 1,
+    "max_index": 23,
     "checkers": [
         {
-            "name": "2_praktikum", 
+            "name": "Praktikum {index}", 
             "patterns": [
-                "^.*/0*2[^0-9].*/praktikum$",
-                "^.*/0*2[^0-9].*/.*\\.go$",
-                "^.*/0*2[^0-9].*/.*\\.html$",
-                "^.*/0*2[^0-9].*/.*\\.txt$"
+                "^.*/0*{index}[^0-9].*/praktikum$",
+                "^.*/0*{index}[^0-9].*/.*\\.go$",
+                "^.*/0*{index}[^0-9].*/.*\\.html$",
+                "^.*/0*{index}[^0-9].*/.*\\.txt$"
             ]
         },
         {
-            "name": "2_summary", 
+            "name": "Summary {index}", 
             "patterns": [
-                "^.*/0*2[^0-9].*/summary.md$",
-                "^.*/0*2[^0-9].*/\\([0-9]+\\).*.md$"
+                "^.*/0*{index}[^0-9].*/summary.md$",
+                "^.*/0*{index}[^0-9].*/\\([0-9]+\\).*.md$"
             ]
         }
     ]
