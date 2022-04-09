@@ -5,7 +5,7 @@
     "delimiter": ",",
     "quote_char": "'",
     "min_index": 1,
-    "max_index": 23,
+    "max_index": 33,
     "checkers": [
         {
             "name": "Praktikum {index}", 
