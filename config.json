@@ -11,6 +11,7 @@
             "name": "Praktikum {index}", 
             "patterns": [
                 "^.*/0*{index}[^0-9].*/praktikum$",
+                "^.*/0*{index}[^0-9].*/screenshot$",
                 "^.*/0*{index}[^0-9].*/.*\\.go$",
                 "^.*/0*{index}[^0-9].*/.*\\.html$",
                 "^.*/0*{index}[^0-9].*/.*\\.txt$"
