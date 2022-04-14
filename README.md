@@ -28,9 +28,9 @@ Please take note, that the `csv_file_name` is `data.csv`. You should provide thi
 Create a csv file containing student's name and their github repositories. The file name should match the one you define in the configuration (by default, it is `data.csv`):
 
 ```bash
-EREN JEAGER,https://github.com/***/***.git
-NARUTO UZUMAKI,https://github.com/***/***.git
-KENSHIN HIMURA,https://github.com/***/***.git
+EREN JEAGER,git@github.com:eren/tugas.git
+NARUTO UZUMAKI,git@github.com:naruto/tugas.git
+KENSHIN HIMURA,git@github.com:kenshin/tugas.git
 ```
 
 ## Run the script
