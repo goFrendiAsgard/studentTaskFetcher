@@ -8,6 +8,13 @@
     "max_index": 33,
     "checkers": [
         {
+            "name": "Summary {index}", 
+            "patterns": [
+                "^.*/0*{index}[^0-9].*/summary.md$",
+                "^.*/0*{index}[^0-9].*/\\([0-9]+\\).*.md$"
+            ]
+        },
+        {
             "name": "Praktikum {index}", 
             "patterns": [
                 "^.*/0*{index}[^0-9].*/praktikum$",
@@ -15,13 +22,6 @@
                 "^.*/0*{index}[^0-9].*/.*\\.go$",
                 "^.*/0*{index}[^0-9].*/.*\\.html$",
                 "^.*/0*{index}[^0-9].*/.*\\.txt$"
-            ]
-        },
-        {
-            "name": "Summary {index}", 
-            "patterns": [
-                "^.*/0*{index}[^0-9].*/summary.md$",
-                "^.*/0*{index}[^0-9].*/\\([0-9]+\\).*.md$"
             ]
         }
     ]
